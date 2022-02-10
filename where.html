@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>University Locater</title>
+    <!-- title created -->
+    <link rel="stylesheet" type="text/css" href="./where.css"/>
+    <h1>University Map Locator Using GeoData </h1>
+    <link href="https://google-developers.appspot.com/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+    <!-- ^ The default for css plugin-->
+    <style>
+      body {
+        background-image: url('spacepic.jpg'); 
+      }
+      </style>
+    
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <!-- ^Script for google maps API that plots the things on the map-->
+    <script src="where.js"></script>
+    <!-- Scripts run in this order ^^^ and with the APIS -->
+    <script>
+
+      function MapCreater() {
+        var LatandLong = new google.maps.LatLng(37.39361,-122.099263) //maps the coord
+        var mapOptions = {
+          zoom: 3.5, //how much you zoom in
+          center: LatandLong, //placed according to this
+          mapTypeId: google.maps.MapTypeId.hybrid //type of map
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        
+        for (every in Data ) { //going through Data from the JS file
+            var line = Data[every]; //gets the Array of the array
+            //within now line[0] and line[1] are the lat and longitude
+            //Next 2 are addresses
+
+            var newLatlng = new google.maps.LatLng(line[0], line[1]);// first
+            //2 indexes of the line are lattitude and longitude
+
+            var marklocation = new google.maps.Marker({ //creates a google maps Marker
+                position: newLatlng, //at this location
+                map: map,
+                title: line[2] //title of the University
+            });
+          }
+        }
+    </script>
+  </head>
+  <body onload="MapCreater()"> <!-- calls this function script
+  immeditely after loading-->
+<div id="map_canvas" style="height: 900px"></div> <!--Size of the map shown by default-->
+
+</body>
+
+
+</html>
